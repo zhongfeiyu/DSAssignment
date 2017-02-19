@@ -2,8 +2,7 @@
 
 > Assignment for Data Structure in 2017.2  
 > In PHP language.  
-> @author zhongfeiyu@tiaozhan.com  
-> All rights resevered.  
+> Author zhongfeiyu@tiaozhan.com   
 
 ## Usage
 Pull this repository on a server.  
