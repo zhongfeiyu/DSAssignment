@@ -10,7 +10,8 @@ class interpreter{
     }
 
     public function process(){
-        while($code = array_shift($this->codes)){
+        while(($code = array_shift($this->codes)) !== null){
+            if($code == "") continue;
             $sentence = explode(' ',$code);
             if(($keys = array_keys($sentence,"")) != null){
                 foreach($keys as $val) {unset($sentence[$val]);}

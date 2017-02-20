@@ -3,12 +3,9 @@
 class unionFind{
     public $id;
     private $size;
-    private $width;
 
-
-    public function __construct($size,$width){
+    public function __construct($size){
         $this->size = $size;
-        $this->width = $width;
         for($i = 0;$i < $size ;$i++)
             $this->id[$i] = $i;
     }
@@ -18,7 +15,7 @@ class unionFind{
             $a = $this->id[$a];
         return $a;
     }
-
+/*
     public function findPath($a){
         $result = array();
         while($this->id[$a] != $a){
@@ -28,7 +25,7 @@ class unionFind{
         array_push($result,$a);
         return $result;
     }
-
+*/
     public function union($a,$b){
         $i = $this->find($a);
         $j = $this->find($b);
@@ -50,8 +47,6 @@ class maze{
     private $graph;
     private $visited;
     private $path = '';
-
-    public $name;
 
     public function __construct($width,$height){
         $this->width = $width;
@@ -93,7 +88,7 @@ class maze{
         elseif($this->width*$this->height <= 1600)$unit = 10;
         else $unit = 5;
         $border = 10;
-        $img = imagecreatetruecolor(($unit+1)*$this->width+2*$border,$this->height*($unit+1)+4*$border);
+        $img = imagecreatetruecolor(($unit+1)*$this->width+2*$border,$this->height*($unit+1)+2*$border);
         $white = imagecolorallocate($img,255,255,255);
         imagefill($img,0,0,$white);
         $black = imagecolorallocate($img,0,0,0);
@@ -111,6 +106,7 @@ class maze{
                     imagefilledrectangle($img,$a,$b,$a+1,$b+$unit,$black);
             }
         }
+        /*
         $way = $this->way();
         if(strlen($way) <= 2*$this->width) imagestring($img,2,$border,$border*2+($unit+1)*$this->height,'Path: '.$way,$black);
         elseif(strlen($way) <= 3*$this->width){
@@ -122,7 +118,7 @@ class maze{
             imagestring($img,2,$border,$border*1.9+($unit+1)*$this->height,'      '.substr($way,floor(strlen($way)/3)+1,floor(strlen($way)/3)),$black);
             imagestring($img,2,$border,$border*2.9+($unit+1)*$this->height,'      '.substr($way,floor(strlen($way)/3)*2+1),$black);
         }
-
+*/
         header("Content-type: image/png");
         imagepng($img,'src/'.$_POST['filename'].'.png');
     }
@@ -177,8 +173,7 @@ class maze{
     public function remove(){
         $filesnames = scandir(dirname(__FILE__).'/src/');
         foreach($filesnames as $name){
-            echo $name;
-            if(substr($name,0,13) < $_POST['filename']) unlink(dirname(__FILE__).'/src/'.$name);
+            if(is_numeric(substr($name,0,13)) && substr($name,0,13) < $_POST['filename']) unlink(dirname(__FILE__).'/src/'.$name);
         }
     }
 }
@@ -187,4 +182,4 @@ $m = new maze($_POST['width'],$_POST['height']);
 $m->remove();
 $m->init();
 $m->printMaze();
-//echo $m->way();
+echo $m->way();

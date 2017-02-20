@@ -28,7 +28,11 @@
   				</div>
   			</div>
 		</form>
-		<img id='img' style="display:block;margin:50px auto;"></img>
+		<div style="width:40%;margin:0 auto;">
+			<h4 style="margin-left:35px;">Path：</h4>
+			<p id='path' style="margin-left:35px;word-break:break-word;"></p>
+			<img id='img' style="display:block;margin:10px auto;"></img>
+		</div>
 	</body>
 	<script type="text/javascript">
 	function isInt(n){
@@ -49,6 +53,7 @@
 					filename: timestamp,
 				},
 				success:function(result){
+					$('#path').html(result);
         			$("#img").attr('src','src/'+timestamp+'.png');
     			}
     		});
